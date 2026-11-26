@@ -121,6 +121,46 @@
     });
   }
 
+  /* ---------- Hobbies: carrusel de Period Films (hobby-films, 2 y 3) ---------- */
+  var film = document.querySelector('#hobbies img[src*="hobby-films"]');
+  if (film) {
+    var extras = ['assets/img/hobby-films2.jpg', 'assets/img/hobby-films3.jpg'];
+    var cargadas = [], pendientes = extras.length;
+    extras.forEach(function (src) {
+      var t = new Image();
+      t.onload = function () { cargadas.push(src); fin(); };
+      t.onerror = function () { fin(); };
+      t.src = src;
+    });
+    function fin() {
+      if (--pendientes > 0 || !cargadas.length) return;
+      cargadas.sort();
+      var cont = document.createElement('div');
+      cont.className = 'film-slider';
+      film.parentNode.insertBefore(cont, film);
+      film.classList.add('on');
+      cont.appendChild(film);
+      cargadas.forEach(function (src) {
+        var im = document.createElement('img');
+        im.className = 'card-photo';
+        im.src = src; im.alt = 'Period films';
+        cont.appendChild(im);
+      });
+      var fotos = cont.querySelectorAll('img');
+      var dots = document.createElement('div');
+      dots.className = 'film-dots';
+      fotos.forEach(function () { dots.appendChild(document.createElement('i')); });
+      cont.appendChild(dots);
+      var pts = dots.querySelectorAll('i'), n = 0;
+      function ver(k) {
+        fotos.forEach(function (f, x) { f.classList.toggle('on', x === k); });
+        pts.forEach(function (p, x) { p.classList.toggle('on', x === k); });
+      }
+      ver(0);
+      setInterval(function () { n = (n + 1) % fotos.length; ver(n); }, 3500);
+    }
+  }
+
   /* ---------- Hobbies: ecualizador que sube y baja debajo de la playlist ---------- */
   var iconoMusica = document.querySelector('#hobbies .fa-music');
   if (iconoMusica) {
