@@ -1,0 +1,260 @@
+/* ==========================================================
+   animaciones.css  -  Portafolio de Milagro
+   Se SUMA a tu diseño. No cambia colores, tamaños ni orden.
+   Para quitar todo: borra la línea <link> en index.html.
+   ========================================================== */
+
+/* ---------- 1. PANTALLA DE INICIO (todo oscuro + tu nombre) ---------- */
+#intro {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 50% 45%, #0f2a66 0%, #050a1f 60%, #02040d 100%);
+  animation: introOut .9s ease 2.9s forwards;
+}
+#introName {
+  display: flex;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2.6rem, 13vw, 5.5rem);
+  letter-spacing: .12em;
+  color: #fff;
+}
+#introName span {
+  display: inline-block;
+  opacity: 0;
+  text-shadow: 0 0 12px #4da3ff, 0 0 32px #1e6bff;
+  animation: introLetter .8s cubic-bezier(.2, .8, .2, 1) forwards, introGlow 2s ease-in-out infinite;
+  animation-delay: calc(var(--i) * .14s + .3s), 1.5s;
+}
+.intro-line {
+  width: 0;
+  height: 3px;
+  margin-top: 22px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, transparent, #00e5ff, #1e6bff, transparent);
+  box-shadow: 0 0 14px #1e6bff;
+  animation: introLine 1.2s ease 1.3s forwards;
+}
+@keyframes introLetter {
+  from { opacity: 0; transform: translateY(40px) scale(.6); filter: blur(12px); }
+  to   { opacity: 1; transform: none; filter: blur(0); }
+}
+@keyframes introGlow {
+  50% { text-shadow: 0 0 18px #00e5ff, 0 0 46px #1e6bff, 0 0 80px #1e6bff; }
+}
+@keyframes introLine { to { width: min(60vw, 340px); } }
+@keyframes introOut  { to { opacity: 0; visibility: hidden; transform: scale(1.08); } }
+
+/* ---------- 2. BARRA DE PROGRESO Y LUZ DEL MOUSE ---------- */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0;
+  z-index: 99990;
+  background: linear-gradient(90deg, #00e5ff, #1e6bff, #8a7bff);
+  box-shadow: 0 0 10px #1e6bff;
+}
+.cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 340px;
+  height: 340px;
+  margin: -170px 0 0 -170px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9990;
+  opacity: 0;
+  transition: opacity .5s;
+  background: radial-gradient(circle, rgba(30, 107, 255, .16), transparent 65%);
+}
+
+/* ---------- 3. HOME: entrada escalonada + partículas ---------- */
+.hero-section2 { overflow: hidden; }
+.hero-section2 .container { position: relative; z-index: 1; }
+
+.hero2-section-caption-full > h2,
+.hero2-section-caption-full > h4,
+.hero2-section-caption-full > p,
+.hero2-section-caption-full > ul {
+  animation: heroUp 1.1s cubic-bezier(.2, .7, .2, 1) backwards;
+}
+.hero2-section-caption-full > h2 { animation-delay: 2.7s; }
+.hero2-section-caption-full > h4 { animation-delay: 2.9s; }
+.hero2-section-caption-full > p  { animation-delay: 3.1s; }
+.hero2-section-caption-full > ul { animation-delay: 3.3s; }
+@keyframes heroUp {
+  from { opacity: 0; transform: translateY(40px); filter: blur(6px); }
+}
+
+.hero-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.hero-particles i {
+  position: absolute;
+  bottom: -20px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff, rgba(120, 180, 255, .6) 40%, transparent 70%);
+  opacity: 0;
+  animation: rise linear infinite;
+}
+@keyframes rise {
+  0%   { transform: translate3d(0, 0, 0) scale(.6); opacity: 0; }
+  15%  { opacity: .9; }
+  100% { transform: translate3d(var(--x, 30px), -105vh, 0) scale(1.1); opacity: 0; }
+}
+
+/* ---------- 4. TÍTULOS: la luz neón pasa letra por letra ---------- */
+.nl-word { display: inline-block; white-space: nowrap; }
+.nl { display: inline-block; -webkit-text-stroke: 2px #a6a6a6; }
+.nl-title.on .nl {
+  animation: neonLetter 6s ease-in-out infinite;
+  animation-delay: calc(var(--i) * .11s);
+}
+@keyframes neonLetter {
+  0%, 34%, 100% { -webkit-text-stroke-color: #a6a6a6; filter: none; }
+  8%  { -webkit-text-stroke-color: #7fd8ff; filter: drop-shadow(0 0 4px #00e5ff) drop-shadow(0 0 12px #1e6bff); }
+  16% { -webkit-text-stroke-color: #00e5ff; filter: drop-shadow(0 0 6px #00e5ff) drop-shadow(0 0 18px #1e6bff); }
+  25% { -webkit-text-stroke-color: #8a7bff; filter: drop-shadow(0 0 5px #8a7bff) drop-shadow(0 0 14px #1e6bff); }
+}
+
+/* Subtítulos con degradado azul que se mueve (Education, Volunteering, Hello...) */
+.light-demo .resume-box h3,
+.light-demo .about-content h4 {
+  display: inline-block;
+  background: linear-gradient(90deg, #122d3e 0%, #1e6bff 25%, #00bcd4 50%, #1e6bff 75%, #122d3e 100%);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 6s linear infinite;
+}
+@keyframes shimmer { to { background-position: -300% 0; } }
+
+/* ---------- 5. MENÚ: línea neón al pasar el mouse ---------- */
+@media (min-width: 992px) {
+  .header .menu nav ul li a { position: relative; }
+  .header .menu nav ul li a::before {
+    content: "";
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #00e5ff, #1e6bff, #8a7bff);
+    box-shadow: 0 0 8px #00e5ff;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .35s ease;
+  }
+  .header .menu nav ul li a:hover::before,
+  .header .menu nav ul li.current a::before { transform: scaleX(1); }
+}
+
+/* ---------- 6. APARECER AL HACER SCROLL ---------- */
+.rv { opacity: 0; }
+.rv.rv-in {
+  opacity: 1;
+  animation: rvUp .95s cubic-bezier(.2, .7, .2, 1) backwards;
+  animation-delay: var(--d, 0s);
+}
+.rv.rv-l.rv-in { animation-name: rvLeft; }
+.rv.rv-r.rv-in { animation-name: rvRight; }
+@keyframes rvUp {
+  from { opacity: 0; transform: translateY(46px) scale(.97); filter: blur(4px); }
+}
+@keyframes rvLeft {
+  from { opacity: 0; transform: translateX(-60px); filter: blur(4px); }
+}
+@keyframes rvRight {
+  from { opacity: 0; transform: translateX(60px); filter: blur(4px); }
+}
+
+/* ---------- 7. TARJETAS: se levantan e inclinan con el mouse ---------- */
+.info-box-1,
+.blog-item {
+  transition: transform .35s ease, box-shadow .35s ease, background .4s ease;
+}
+.info-box-1:hover,
+.blog-item:hover {
+  transform: perspective(900px) translateY(-8px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  box-shadow: 0 18px 40px rgba(30, 107, 255, .25), 0 0 0 1px rgba(0, 229, 255, .3);
+}
+.card-photo { transition: transform .6s ease, filter .6s ease; }
+.info-box-1:hover .card-photo { transform: scale(1.04); filter: saturate(1.2); }
+
+.button-1 { transition: transform .3s, box-shadow .3s, color .3s; }
+.button-1:hover { transform: translateY(-3px); box-shadow: 0 8px 22px rgba(30, 107, 255, .35); }
+
+/* ---------- 8. IMÁGENES CON MOVIMIENTO SUAVE ---------- */
+.blog-item .thumbanil { overflow: hidden; }
+.portfolio-item img:not(.contain),
+.blog-item .thumbanil img {
+  animation: kenburns 14s ease-in-out infinite alternate;
+}
+.blog-item:nth-child(2n) .thumbanil img { animation-delay: -6s; }
+@keyframes kenburns {
+  from { scale: 1;   translate: 0 0; }
+  to   { scale: 1.1; translate: -1.5% -1.5%; }
+}
+
+.about-img img { animation: aboutFloat 6s ease-in-out infinite alternate; }
+@keyframes aboutFloat {
+  from { translate: 0 0; }
+  to   { translate: 0 -10px; }
+}
+
+/* Galería: cada foto "respira" dentro de su marco */
+.gallery a { transition: box-shadow .4s ease; }
+.gallery a:hover { box-shadow: 0 0 0 2px rgba(0, 229, 255, .7), 0 12px 30px rgba(30, 107, 255, .35); }
+.gallery a img {
+  scale: 1.1;
+  animation: galleryFloat 7s ease-in-out infinite alternate;
+}
+.gallery a:nth-child(2n) img { animation-duration: 9s; animation-delay: -3s; }
+.gallery a:nth-child(3n) img { animation-duration: 8s; animation-delay: -5s; animation-direction: alternate-reverse; }
+@keyframes galleryFloat {
+  from { translate: -2% 2%; }
+  to   { translate: 2% -2%; }
+}
+
+/* ---------- 9. FRASE EN MOVIMIENTO (Contact) ---------- */
+#frase {
+  display: inline-block;
+  min-height: 2em;
+  margin-top: 14px;
+  font-size: clamp(1.05rem, 3.6vw, 1.5rem);
+  font-weight: 600;
+  background: linear-gradient(90deg, #1e6bff, #00bcd4, #8a7bff, #1e6bff);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 5s linear infinite;
+}
+#frase::after {
+  content: "|";
+  margin-left: 2px;
+  -webkit-text-fill-color: #1e6bff;
+  animation: blink 1s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ---------- Respeta a quien prefiere menos movimiento ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  #intro { display: none; }
+  .rv { opacity: 1; }
+}
