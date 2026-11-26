@@ -160,6 +160,8 @@
   }
   hacerSlider(document.querySelector('.blog-item .thumbanil img.hydro'),
     ['assets/img/hydronexis2.jpg', 'assets/img/hydronexis3.jpg'], 'sl-work');
+  hacerSlider(document.querySelector('.blog-item .thumbanil img[src*="tutoring"]'),
+    ['assets/img/tutoring2.jpg', 'assets/img/tutoring3.jpg'], 'sl-work');
   hacerSlider(document.querySelector('.about-img img'),
     ['assets/img/milagro-about2.jpg', 'assets/img/milagro-about3.jpg'], 'sl-flow');
 
