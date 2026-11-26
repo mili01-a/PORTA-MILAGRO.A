@@ -121,6 +121,48 @@
     });
   }
 
+  /* ---------- Carruseles genéricos (Work: Hydronexis, About: foto) ---------- */
+  function hacerSlider(img, srcs, cls) {
+    if (!img) return;
+    var clase0 = img.className, ok = [], p = srcs.length;
+    srcs.forEach(function (s) {
+      var t = new Image();
+      t.onload = function () { ok.push(s); fin(); };
+      t.onerror = fin;
+      t.src = s;
+    });
+    function fin() {
+      if (--p > 0 || !ok.length) return;
+      ok.sort();
+      var c = document.createElement('div');
+      c.className = 'sl ' + cls;
+      img.parentNode.insertBefore(c, img);
+      c.appendChild(img);
+      img.classList.add('on');
+      ok.forEach(function (s) {
+        var im = document.createElement('img');
+        im.src = s; im.alt = img.alt; im.className = clase0;
+        c.appendChild(im);
+      });
+      var fotos = c.querySelectorAll('img');
+      var dots = document.createElement('div');
+      dots.className = 'film-dots';
+      fotos.forEach(function () { dots.appendChild(document.createElement('i')); });
+      c.appendChild(dots);
+      var pts = dots.querySelectorAll('i'), n = 0;
+      function ver(k) {
+        fotos.forEach(function (f, x) { f.classList.toggle('on', x === k); });
+        pts.forEach(function (q, x) { q.classList.toggle('on', x === k); });
+      }
+      ver(0);
+      setInterval(function () { n = (n + 1) % fotos.length; ver(n); }, 3800);
+    }
+  }
+  hacerSlider(document.querySelector('.blog-item .thumbanil img.hydro'),
+    ['assets/img/hydronexis2.jpg', 'assets/img/hydronexis3.jpg'], 'sl-work');
+  hacerSlider(document.querySelector('.about-img img'),
+    ['assets/img/milagro-about2.jpg', 'assets/img/milagro-about3.jpg'], 'sl-flow');
+
   /* ---------- Hobbies: carrusel de Period Films (hobby-films, 2 y 3) ---------- */
   var film = document.querySelector('#hobbies img[src*="hobby-films"]');
   if (film) {
