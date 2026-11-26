@@ -121,6 +121,25 @@
     });
   }
 
+  /* ---------- Hobbies: ecualizador que sube y baja debajo de la playlist ---------- */
+  var iconoMusica = document.querySelector('#hobbies .fa-music');
+  if (iconoMusica) {
+    var caja = iconoMusica.closest('.info-box-1-inner');
+    var medio = caja && caja.querySelector('.card-photo');
+    if (medio) {
+      var eq = document.createElement('div');
+      eq.className = 'eq';
+      eq.setAttribute('aria-hidden', 'true');
+      for (var k = 0; k < 28; k++) {
+        var b = document.createElement('i');
+        b.style.setProperty('--i', k);
+        b.style.setProperty('--r', k % 5);
+        eq.appendChild(b);
+      }
+      medio.insertAdjacentElement('afterend', eq);
+    }
+  }
+
   /* ---------- 5. Home: partículas de luz flotando ---------- */
   var hero = document.querySelector('.hero-section2');
   if (hero && !reduce) {
