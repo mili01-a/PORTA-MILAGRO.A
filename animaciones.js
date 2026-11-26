@@ -11,6 +11,12 @@
   var hasIO = 'IntersectionObserver' in window;
 
   /* ---------- 1. Pantalla de inicio: el nombre aparece letra por letra ---------- */
+  if (!document.getElementById('intro')) {
+    var d = document.createElement('div');
+    d.id = 'intro';
+    d.innerHTML = '<div id="introName">Milagro</div><div class="intro-line"></div>';
+    document.body.insertBefore(d, document.body.firstChild);
+  }
   var nm = document.getElementById('introName');
   if (nm) {
     var nombre = nm.textContent.trim();
@@ -80,7 +86,7 @@
     ['.cv-box', ''],
     ['.cv-video', ''],
     ['.resume-box', ''],
-    ['.gallery a', '']
+    ['.gallery', '']
   ];
   var conteo = new Map();
   var items = [];
@@ -104,6 +110,15 @@
     items.forEach(function (el) { io.observe(el); });
   } else {
     items.forEach(function (el) { el.classList.add('rv-in'); });
+  }
+
+  /* ---------- Galería: carrusel automático ---------- */
+  if (window.jQuery && jQuery.fn.owlCarousel) {
+    jQuery('.gallery').addClass('owl-carousel').owlCarousel({
+      loop: false, rewind: true, margin: 14, autoplay: true, autoplayTimeout: 3200,
+      autoplayHoverPause: true, smartSpeed: 900, dots: true, nav: false,
+      responsive: { 0: { items: 1 }, 576: { items: 2 }, 992: { items: 3 } }
+    });
   }
 
   /* ---------- 5. Home: partículas de luz flotando ---------- */
@@ -161,7 +176,7 @@
   }
 
   /* ---------- 8. Contact: frase que se escribe sola ---------- */
-  var cab = document.querySelector('#contact .section-headding');
+  var cab = document.querySelector('#contact .contact-from');
   if (cab) {
     var frase = document.createElement('p');
     frase.id = 'frase';
