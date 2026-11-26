@@ -125,11 +125,17 @@
   function hacerSlider(img, srcs, cls) {
     if (!img) return;
     var clase0 = img.className, ok = [], p = srcs.length;
-    srcs.forEach(function (s) {
-      var t = new Image();
-      t.onload = function () { ok.push(s); fin(); };
-      t.onerror = fin;
-      t.src = s;
+    var exts = ['.jpg', '.jpeg', '.png', '.webp', '.JPG', '.JPEG', '.PNG'];
+    srcs.forEach(function (base) {
+      base = base.replace(/\.jpg$/, '');
+      var i = 0;
+      (function probar() {
+        if (i >= exts.length) { fin(); return; }
+        var t = new Image();
+        t.onload = function () { ok.push(base + exts[i]); fin(); };
+        t.onerror = function () { i++; probar(); };
+        t.src = base + exts[i];
+      })();
     });
     function fin() {
       if (--p > 0 || !ok.length) return;
