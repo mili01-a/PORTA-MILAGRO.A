@@ -255,7 +255,7 @@
 /* ---------- Respeta a quien prefiere menos movimiento ---------- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
-  #intro { display: none; }
+  #intro, body::before { display: none !important; }
   .rv { opacity: 1; }
 }
 
@@ -294,3 +294,45 @@ body::before{content:"";position:fixed;inset:0;z-index:99998;pointer-events:none
 
 /* Frase grande debajo de Send Message */
 #frase{display:block;text-align:center;margin:40px 0 0;font-size:clamp(1.5rem,5vw,2.6rem);font-weight:700;min-height:2.4em}
+
+/* ===== AJUSTES v3 ===== */
+/* Nombre de la pantalla de inicio, mucho más grande */
+#introName{font-size:clamp(3.8rem,19vw,9.5rem);letter-spacing:.1em}
+.intro-line{height:4px}
+@keyframes introLine{to{width:min(70vw,520px)}}
+
+/* Sin brillitos flotando */
+.hero-particles{display:none!important}
+
+/* Luz del cursor: pequeña y suave */
+.cursor-glow{width:90px;height:90px;margin:-45px 0 0 -45px;
+  background:radial-gradient(circle,rgba(0,229,255,.28),rgba(30,107,255,.12) 45%,transparent 70%)}
+
+/* Todos los títulos del mismo tamaño y más grandes */
+.section-headding h2{font-size:clamp(2.6rem,8vw,5rem)!important;letter-spacing:5px}
+
+/* Neón más nítido (casi sin difuminado) */
+@keyframes neonLetter{
+  0%,34%,100%{-webkit-text-stroke-color:#a6a6a6;filter:none;transform:none}
+  8%{-webkit-text-stroke-color:#7fd8ff;filter:drop-shadow(0 0 1px #00e5ff);transform:translateY(-6px)}
+  16%{-webkit-text-stroke-color:#00e5ff;filter:drop-shadow(0 0 2px #00e5ff);transform:translateY(-12px) scale(1.08)}
+  25%{-webkit-text-stroke-color:#8a7bff;filter:drop-shadow(0 0 1px #8a7bff);transform:translateY(-4px)}
+}
+
+/* Frase de Contact más grande */
+#frase{font-size:clamp(2rem,6.5vw,3.6rem)}
+
+/* Fotos completas: se ve toda la cara */
+.blog-item .thumbanil img.hydro,
+#hobbies img[src*="hobby-music"]{
+  object-fit:contain!important;object-position:center!important;
+  background:#E4E5F2;animation:none!important}
+
+/* ===== Ecualizador debajo de la playlist ===== */
+.eq{display:flex;align-items:flex-end;justify-content:center;gap:4px;height:46px;margin:-4px 0 16px}
+.eq i{flex:1;max-width:8px;height:100%;border-radius:3px;transform-origin:bottom;
+  background:linear-gradient(to top,#1e6bff,#00e5ff);
+  animation:eqBar 1s ease-in-out infinite alternate;
+  animation-delay:calc(var(--i) * -.13s);
+  animation-duration:calc(.55s + var(--r) * .12s)}
+@keyframes eqBar{from{transform:scaleY(.15)}to{transform:scaleY(1)}}
