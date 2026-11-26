@@ -336,3 +336,7 @@ body::before{content:"";position:fixed;inset:0;z-index:99998;pointer-events:none
   animation-delay:calc(var(--i) * -.13s);
   animation-duration:calc(.55s + var(--r) * .12s)}
 @keyframes eqBar{from{transform:scaleY(.15)}to{transform:scaleY(1)}}
+
+/* ===== Hydronexis: llena todo el cuadro y mantiene las caras arriba ===== */
+.blog-item .thumbanil img.hydro{
+  object-fit:cover!important;object-position:center 15%!important;background:none}
